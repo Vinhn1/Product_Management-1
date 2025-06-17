@@ -1,0 +1,60 @@
+extends ../../layouts/default.pug
+
+block main
+    h1 Thêm Sản Phẩm Mới
+    
+    .card
+        .card-header Thông Tin Sản Phẩm
+        .card-body
+            form(action="/admin/products/create" method="POST")
+                .row
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="title") Tên sản phẩm
+                            input#title.form-control(type="text" name="title" required)
+                    
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="price") Giá
+                            input#price.form-control(type="number" name="price" required)
+                
+                .row
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="discountPercentage") Phần trăm giảm giá
+                            input#discountPercentage.form-control(type="number" name="discountPercentage" value="0" min="0" max="100")
+                    
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="stock") Số lượng tồn kho
+                            input#stock.form-control(type="number" name="stock" required)
+                
+                .mb-3
+                    label.form-label(for="thumbnail") Hình ảnh (URL)
+                    input#thumbnail.form-control(type="url" name="thumbnail" required)
+                
+                .mb-3
+                    label.form-label(for="description") Mô tả
+                    textarea#description.form-control(name="description" rows="3")
+                
+                .row
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="status") Trạng thái
+                            select#status.form-control(name="status" required)
+                                option(value="active") Hoạt động
+                                option(value="inactive") Dừng hoạt động
+                    
+                    .col-md-6
+                        .mb-3
+                            label.form-label(for="position") Vị trí
+                            input#position.form-control(type="number" name="position" value="1")
+                
+                .mb-3
+                    .form-check
+                        input#delete.form-check-input(type="checkbox" name="delete" value="false")
+                        label.form-check-label(for="delete") Đã xóa
+                
+                .d-flex.gap-2
+                    button.btn.btn-primary(type="submit") Thêm Sản Phẩm
+                    a.btn.btn-secondary(href="/admin/products") Hủy 

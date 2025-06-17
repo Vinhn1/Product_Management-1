@@ -1,0 +1,37 @@
+extends ../../layouts/default.pug
+block main 
+    h1 Trang Tổng Quan
+    
+    .row
+        .col-md-4
+            .card.text-white.bg-primary.mb-3
+                .card-header Sản Phẩm
+                .card-body
+                    h5.card-title Tổng số sản phẩm
+                    p.card-text 0 sản phẩm
+                    a.btn.btn-light(href="/admin/products") Xem chi tiết
+        
+        .col-md-4
+            .card.text-white.bg-success.mb-3
+                .card-header Đơn Hàng
+                .card-body
+                    h5.card-title Tổng số đơn hàng
+                    p.card-text 0 đơn hàng
+                    a.btn.btn-light(href="#") Xem chi tiết
+        
+        .col-md-4
+            .card.text-white.bg-warning.mb-3
+                .card-header Người Dùng
+                .card-body
+                    h5.card-title Tổng số người dùng
+                    p.card-text 0 người dùng
+                    a.btn.btn-light(href="#") Xem chi tiết
+    
+    .row
+        .col-12
+            .card
+                .card-header Hành Động Nhanh
+                .card-body
+                    a.btn.btn-primary.mr-2(href="/admin/products/create") Thêm Sản Phẩm Mới
+                    a.btn.btn-info.mr-2(href="/admin/products") Quản Lý Sản Phẩm
+                    a.btn.btn-success(href="/admin/products/test-data") Tạo Dữ Liệu Test

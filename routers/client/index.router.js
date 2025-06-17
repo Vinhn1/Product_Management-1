@@ -1,8 +1,17 @@
 const express = require("express");
 const router = express.Router();
 
-const controller = require("../../controllers/home.controller");
+// HomeRouter
+const homeRouter = require("../client/home.router");
+// ProductRouter
+const productRouter = require("../client/product.router");
+
 
 module.exports = (app) => {
-  app.use("/", controller.index);
+  // Trang Chu
+  app.use("/", homeRouter);
+
+  // Trang Danh Sach San Pham (Product)
+  app.use("/product", productRouter);
+
 };

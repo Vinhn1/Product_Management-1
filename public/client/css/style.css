@@ -70,8 +70,6 @@ body {
     overflow: hidden;
 }
 
-
-
 /* Footer Styles */
 .footer {
     background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
@@ -170,4 +168,105 @@ body {
 .header .inner-menu a:focus {
     outline: 2px solid rgba(255,255,255,0.5);
     outline-offset: 2px;
+}
+
+/* Product Item Styles */
+.product-item {
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    height: 100%; /* Ensure all items have the same height */
+}
+
+.product-item:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+}
+
+.product-item .inner-image {
+    width: 100%;
+    padding-top: 100%; /* 1:1 Aspect Ratio */
+    position: relative;
+    overflow: hidden;
+}
+
+.product-item .inner-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.product-item:hover .inner-image img {
+    transform: scale(1.05);
+}
+
+.product-item .inner-content {
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1; /* Allow content to take available space */
+}
+
+.product-item .inner-title {
+    font-size: 1.2em;
+    font-weight: 600;
+    margin-bottom: 10px;
+    color: #333;
+    min-height: 2.4em; /* Ensure consistent title height */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2; /* Limit to 2 lines */
+    -webkit-box-orient: vertical;
+}
+
+.product-item .inner-price-new {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: #e74c3c;
+    margin-bottom: 5px;
+}
+
+.product-item .inner-price-old {
+    font-size: 0.9em;
+    color: #999;
+    text-decoration: line-through;
+    margin-bottom: 5px;
+}
+
+.product-item .inner-discount {
+    background-color: #28a745;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8em;
+    font-weight: 600;
+    align-self: flex-start; /* Align to the start of the flex container */
+    margin-top: auto; /* Push discount to the bottom */
+}
+
+/* Responsive adjustments for product grid */
+@media (max-width: 992px) {
+    .col-4.mb-3 {
+        width: 50%; /* Two columns on medium screens */
+        flex: 0 0 50%;
+        max-width: 50%;
+    }
+}
+
+@media (max-width: 576px) {
+    .col-4.mb-3 {
+        width: 100%; /* Single column on small screens */
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
 }

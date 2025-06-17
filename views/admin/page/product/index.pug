@@ -1,0 +1,76 @@
+extends ../../layouts/default.pug
+include ../../mixins/filterStatus.pug
+include ../../mixins/search.pug
+block main 
+    h1 Trang Danh Sách Sản Phẩm
+
+    //- Nút thêm sản phẩm mới
+    .mb-3
+        a.btn.btn-primary(href="/admin/products/create") Thêm Sản Phẩm Mới
+
+    //- Bộ Lọc
+    .card.mb-3 
+        .card-header Bộ Lọc Và Tìm Kiếm 
+        .card-body
+            .row
+                .col-6
+                   +filterStatus(filterStatus)
+                .col-6
+                    +search(keyword)  
+                           
+
+    .card.mb-3 
+        .card-header Danh Sách 
+        .card-body
+            if products && products.length > 0
+                table.table.table-hover.table-sm 
+                    thead 
+                        tr.text-center 
+                            th STT 
+                            th Hình ảnh 
+                            th Tiêu đề
+                            th Giá
+                            th Trạng thái 
+                            th Hành động
+                    tbody
+                        each item, index in products 
+                            tr 
+                                td.align-middle.text-center #{index + 1}
+                                td.text-center
+                                    img.d-block.mx-auto(src=item.thumbnail alt=item.title width="100px" height="auto")
+                                        
+                                td.align-middle.text-center #{item.title}
+                                td.align-middle.text-center #{item.price}$
+                                td.align-middle.text-center
+                                    if(item.status == "active") 
+                                        a(href=`/admin/products/change-status/inactive/${item._id}`
+                                         class="badge bg-success text-white") Hoạt Động
+                                    else 
+                                        a(href=`/admin/products/change-status/active/${item._id}`
+                                         class="badge bg-danger text-white") Dừng Hoạt Động
+
+                                td.align-middle.text-center 
+                                    a.btn.btn-warning.btn-sm(href=`/admin/products/edit/${item._id}`) Sửa
+                                    form.d-inline(action=`/admin/products/delete/${item._id}` method="POST")
+                                        button.btn.btn-danger.btn-sm.ml-1(type="submit" onclick="return confirm('Bạn có chắc muốn xóa?')") Xóa
+            else
+                .text-center
+                    p Không có sản phẩm nào
+
+    if pagination && pagination.totalPage > 1
+        nav 
+            ul(class="pagination")
+                li(class=`page-item ${pagination.currentPage <= 1 ? 'disabled' : ''}`)
+                    a(class="page-link", href=`?page=${pagination.currentPage - 1}&status=${status}&keyword=${keyword}`) Trang Trước
+                each val in Array(pagination.totalPage).fill().map((_, i) => i + 1)
+                    li(class=`page-item ${pagination.currentPage === val ? 'active' : ''}`)
+                        a(class="page-link", href=`?page=${val}&status=${status}&keyword=${keyword}`) #{val}
+                li(class=`page-item ${pagination.currentPage >= pagination.totalPage ? 'disabled' : ''}`)
+                    a(class="page-link", href=`?page=${pagination.currentPage + 1}&status=${status}&keyword=${keyword}`) Trang Sau
+    
+    form(
+     action=""
+     method="POST"
+     id="form-change-status"
+     data-path=`${prefixAdmin}/products`
+     )
