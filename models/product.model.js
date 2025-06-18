@@ -9,7 +9,16 @@ const singProductSchema = new mongoose.Schema({
   thumbnail: String,
   status: String,
   position: Number,
-  delete: Boolean,
+  delete: {
+    type: Boolean,
+    default: false
+  },
+  deletedAt: {
+    type: Date,
+    default: null
+  }
+}, {
+  timestamps: true // Tự động thêm createdAt và updatedAt
 });
 
 const Product = mongoose.model("Product", singProductSchema, "product");

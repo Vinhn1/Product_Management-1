@@ -21,4 +21,7 @@ router.post("/update-status", controller.updateStatus);
 // Xóa sản phẩm (POST)
 router.post("/delete/:id", controller.delete);
 
+// Khôi phục sản phẩm đã xóa (POST)
+router.post("/restore/:id", controller.restore);
+
 module.exports = router;

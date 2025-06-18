@@ -105,10 +105,38 @@ module.exports.updateStatus = async (req, res) => {
 module.exports.delete = async (req, res) => {
   try {
     const id = req.params.id;
-    await Product.deleteOne({ _id: id }, { $set: { delete: true } });
+    await Product.updateOne(
+      { _id: id }, 
+      { 
+        $set: { 
+          delete: true,
+          deletedAt: new Date() // Thêm thời gian xóa
+        } 
+      }
+    );
     res.redirect("/admin/products");
   } catch (error) {
     console.error("Lỗi khi xóa sản phẩm:", error);
+    res.redirect("/admin/products");
+  }
+};
+
+// [POST] /admin/products/restore/:id - Khôi phục sản phẩm đã xóa
+module.exports.restore = async (req, res) => {
+  try {
+    const id = req.params.id;
+    await Product.updateOne(
+      { _id: id }, 
+      { 
+        $set: { 
+          delete: false,
+          deletedAt: null // Xóa thời gian xóa
+        } 
+      }
+    );
+    res.redirect("/admin/products");
+  } catch (error) {
+    console.error("Lỗi khi khôi phục sản phẩm:", error);
     res.redirect("/admin/products");
   }
 };
