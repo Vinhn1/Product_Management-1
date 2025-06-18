@@ -105,7 +105,7 @@ module.exports.updateStatus = async (req, res) => {
 module.exports.delete = async (req, res) => {
   try {
     const id = req.params.id;
-    await Product.updateOne({ _id: id }, { $set: { delete: true } });
+    await Product.deleteOne({ _id: id }, { $set: { delete: true } });
     res.redirect("/admin/products");
   } catch (error) {
     console.error("Lỗi khi xóa sản phẩm:", error);
